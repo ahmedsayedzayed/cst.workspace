@@ -1,0 +1,43 @@
+<section class="mb-3" *ngIf="filters.length">
+  <ng-content></ng-content>
+  <div  class="d-flex flex-wrap align-items-center">
+    <span class="filters-determinats">{{ "::FiltersDeterminats" | abpLocalization }}:  </span>
+    <ng-template ngFor let-filter [ngForOf]="filters">
+      <div class="banner d-flex me-1" (click)="selectedFiltersBannerService.removeFilter(filter.filterName)">
+        <span class="banner-text text-primary">{{ filter.filterTitle | abpLocalization }}:</span>
+        <span class="banner-filter-value">{{ filter.filterValue }}</span>
+        <span *ngIf="filter.otherFilterValue?.length > 0" [ngbTooltip]="otherFilterValue" class="badge-count">+{{filter.otherFilterValue.length}}</span>
+        <ng-template #otherFilterValue>
+          <ul>
+            <li *ngFor="let item of filter.otherFilterValue">
+              <span>{{ item }}</span>
+            </li>
+          </ul>
+        </ng-template>
+        <span class="banner-clear-icon" >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+          >
+            <path
+              d="M3 9L9 3M3 3L9 9"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </div>
+    </ng-template>
+    <div class="cancelFilter" (click)="selectedFiltersBannerService.clearFilters()">
+      <span> {{ '::CancelFilter' | abpLocalization}}</span>
+      <span class="ms-1"
+        ><i type="button" class="icon-x"></i
+      ></span>
+    </div>
+  </div>
+</section>

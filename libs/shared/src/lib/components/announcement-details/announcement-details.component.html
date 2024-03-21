@@ -1,0 +1,27 @@
+<abp-modal [(visible)]="isModalOpen" [options]="{ centered:true , size:'lg' ,backdropClass: 'announcement-backdrop', windowClass: 'announcement-modal' }" *ngIf="announcementDetails" >
+    <ng-template #abpHeader>
+      <span class="header">{{"CMSService::Announcement:Announcement"|abpLocalization}}</span>
+    </ng-template>
+  
+    <ng-template #abpBody>
+        <div class="anouncement-details">
+            <div class="date">
+                <label class="from me-1">{{"CMSService::Announcements:From"|abpLocalization}} : </label>
+                <span class="date-from">{{announcementDetails?.publishDate |date:AppConsts.DateOnlyFormat}}</span>
+                <span class="mx-1"> - </span>
+                <label class="to me-1">{{"CMSService::Announcements:To"|abpLocalization}} : </label>
+                <span class="date-to">{{announcementDetails?.endDate |date:AppConsts.DateOnlyFormat}}</span>
+            </div>
+            <span class="title">{{announcementDetails?.title}}</span>
+            <span class="category">
+              <label >{{ 'CMSService::Announcements:Category' | abpLocalization }}</label>
+                : {{announcementDetails?.announcementDepartmentName}}</span>
+            <hr class="m-0">
+            <span class="content">{{announcementDetails?.content}}</span>
+        </div>
+    </ng-template>
+  
+    <ng-template #abpFooter>
+      <button type="button" class="btn-cancel" abpClose>{{'CMSService::Announcements:Close'|abpLocalization}}</button>
+    </ng-template>
+  </abp-modal>

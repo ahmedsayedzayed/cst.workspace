@@ -1,0 +1,434 @@
+@use 'sass:math';
+@import 'assets/styles/sass/component';
+@import 'assets/styles/sass/root-variables';
+@import 'assets/styles/sass/prime_ng/';
+
+// calendar
+@import 'node_modules/angular-calendar/css/angular-calendar.css';
+/* You can add global styles to this file, and also import other style files */
+:root .lpx-theme-dark {
+  --lpx-logo: url('/assets/images/logo/logo-light.svg');
+  --lpx-logo-icon: url('/assets/images/logo/icon.svg');
+}
+
+:root .lpx-theme-light {
+  --lpx-logo: url('/assets/images/logo/logo-dark.svg');
+  --lpx-logo-icon: url('/assets/images/logo/icon.svg');
+}
+
+@keyframes breath {
+  // 0%   { background-size: 100% auto; }
+  50% {
+    background-size: 140% auto;
+  }
+
+  // 100% { background-size: 100% auto; }
+}
+
+@mixin flexable($gapvalue) {
+  display: flex;
+  align-items: center;
+  gap: $gapvalue;
+}
+
+@mixin fonts() {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+body {
+  // background-color: #E2E8F0;
+  background-color: white;
+  overflow-x: hidden;
+}
+
+body ngb-typeahead-window,
+body ngb-typeahead-window.dropdown-menu {
+  overflow-y: auto !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--secondary-dark-purple-100, #5e1ad5);
+}
+
+.header-item {
+  // height: 3rem;
+  border-radius: 24px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0px 10px;
+  font-size: 0.75rem;
+
+  .header-icon {
+    font-size: 1.125rem;
+    line-height: 0;
+  }
+
+  &.circular-item {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    background: rgb(255 255 255 / 39%);
+  }
+}
+
+.is-invalid {
+  .form-control {
+    padding-right: 12px !important;
+  }
+}
+
+:root {
+  --bs-modal-header-padding: 0px !important;
+}
+
+abp-confirmation {
+  --bs-btn-color: #e6ebef;
+
+  .confirmation-dialog .footer {
+    flex-direction: row-reverse;
+    justify-content: center !important;
+
+    .confirmation-button {
+      padding: 12px 48px !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+
+      &--reject {
+        background-color: transparent !important;
+        color: black !important;
+        border: 1px solid var(--bs-btn-color) !important;
+
+        &:hover {
+          background-color: var(--bs-btn-color) !important;
+        }
+      }
+    }
+  }
+}
+
+.modal-footer {
+  justify-content: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.task {
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+
+  .task-icon {
+    font-size: 20px;
+  }
+
+  .text {
+    color: var(--basic-white, #fff);
+
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    /* 133.333% */
+  }
+
+  &:hover {
+    background: rgb(255 255 255 / 15%);
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .modal .modal-content {
+    padding: 30px 0px;
+    .actions {
+      button {
+        padding: 10px 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-xl) {
+  .task {
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+
+    .text {
+      display: none;
+    }
+  }
+}
+
+.gap-point-5 {
+  gap: 0.5rem;
+}
+
+ngx-spinner .ngx-spinner-overlay {
+  background-color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  // .la-ball-scale-multiple{
+  //   background-image: url(assets/images/Logo-Loader.svg);
+  // }
+}
+#lp-page-loader {
+  background-color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  &::after {
+    background-image: url(assets/images/cst-loader.gif);
+    background-repeat: no-repeat;
+    animation: none;
+    width: 158px;
+    height: 100px;
+  }
+}
+
+.btn.btn-outline-light {
+  &.btn-action {
+    padding: 16px 24px;
+  }
+  border: 1px solid var(--neutral-400, #94a3b8);
+  color: var(--neutral-500, #64748b);
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+
+.table-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  .btn{
+    border: 1px solid var(--neutral-200, #e2e8f0) !important;
+    padding: 6px 8px !important;
+    &:disabled i{
+      color: var(--text-placeholder);
+    }
+    i {
+      font-size: 1.25rem;
+      // color: var(--lpx-primary);
+      -webkit-text-stroke: 0.3px;
+      line-height: 1;
+      &:before {
+        margin: 0px;
+      }
+    }
+    // img {
+    //   width: 1.25rem;
+    //   margin-top: -10px;
+    // }
+    &:hover {
+      i {
+        color: var(--basic-white);
+      }
+    }
+  }
+}
+
+
+.action-btn {
+  border: 1px solid var(--neutral-200, #e2e8f0) !important;
+  padding: 8px 12px !important;
+  &:disabled i{
+    color: var(--text-placeholder);
+  }
+  i {
+    font-size: 1.25rem;
+    color: var(--lpx-primary);
+    -webkit-text-stroke: 0.3px;
+    line-height: 1;
+    &:before {
+      margin: 0px;
+    }
+  }
+  img {
+    width: 1.25rem;
+    margin-top: -10px;
+  }
+  &:hover {
+    i {
+      color: var(--basic-white);
+    }
+  }
+}
+
+.dropdown.action-dropdown-menu {
+  .btn.dropdown-toggle {
+    border-radius: 20px;
+    background: var(--neutral-100, #f1f5f9);
+    padding: 0px;
+    width: 40px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #0f172a;
+    border: 0;
+    &:after {
+      display: none;
+    }
+  }
+
+  .dropdown-menu {
+    &.show {
+      padding: 8px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 4px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    .dropdown-item {
+      padding: 0;
+      margin-bottom: 8px;
+      i {
+        font-size: 1.25rem;
+        line-height: 0;
+      }
+      i.icon-check {
+        color: #0d9488;
+      }
+      i.icon-x {
+        color: #e11d48;
+      }
+      i.icon-reply {
+        color: #94a3b8;
+      }
+      i.icon-document-text {
+        color: #8653e0;
+      }
+    }
+  }
+}
+
+.btn.btn-form-cancel {
+  border-radius: 8px;
+  border: 1px solid var(--neutral-400, #94a3b8);
+  padding: 10px 30px;
+  color: var(--neutral-500, #64748b);
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background: #64748b2a;
+  }
+}
+
+
+.avatar-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 150px;
+  background: var(--Neutral-200, #E2E8F0);
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.08);
+  color: var(--Neutral-400, #94A3B8);
+  font-weight: 800;
+}
+
+
+.ng-select.ng-select-single.circular-ng-select .ng-select-container {
+  width: 8rem;
+  border-radius: 40px;
+  background: var(--secondary-dark-purple-6, rgba(94, 26, 213, 0.06));
+  color: #5e1ad5 !important;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px; /* 183.333% */
+  .ng-option {
+    color: #5e1ad5 !important;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px; /* 183.333% */
+  }
+}
+
+
+.ltr-text{
+  display: inline-block;
+  direction: ltr;
+}
+
+.grid-link{
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+  position: relative;
+  &:after{
+    font-family: 'tailwindicon-line';
+    font-style: normal;
+    // margin-right: 8px;
+    font-size: 0.85rem;
+    line-height: 0;
+    left: -20px;
+  }
+	&:hover{
+		color: var(--lpx-primary) !important;
+    app-empty, span{
+		  color: var(--lpx-primary) !important;
+    }
+		&:after{
+			content: '';
+		}
+	}
+}
+
+
+
+.form-row-gap{
+  row-gap: .75rem;
+}
+
+.form-group{
+  .hint-text{
+    color: var(--text-placeholder, #94A3B8);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.375rem;
+    i{
+      font-size: 14px;
+      &:before {
+        html[dir=rtl] &{
+          margin-right: 0px;
+        }
+        html[dir=ltr] &{
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}

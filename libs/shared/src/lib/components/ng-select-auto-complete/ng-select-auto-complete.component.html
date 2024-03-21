@@ -1,0 +1,5 @@
+<ng-select [items]="data$ | async" (search)="queryChanged = $event" [bindLabel]="bindLabel" [bindValue]="bindValue"
+[(ngModel)]="value" (change)="valueChanged.emit($event)" [disabled]="disabled" [appendTo]="appendTo" (click)="search()" (clear)="clear()"
+[class.loading]="isLoading" [notFoundText]="(isLoading ? '::NgSelect:LoadingData' : '::NgSelect:NoDataFound') | abpLocalization"
+[dropdownPosition]="dropdownPosition">
+</ng-select>

@@ -1,0 +1,72 @@
+:host {
+  font-size: 0.6875rem;
+  font-weight: bold;
+}
+
+.banner {
+  border-radius: 80px;
+  border: 1px solid var(--neutral-200, #e2e8f0);
+  background: var(--basic-white, #fff);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  cursor: pointer;
+  span {
+    text-align: center;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .banner-filter-value {
+    padding: 2px 4px;
+  }
+
+  .banner-clear-icon :hover {
+    cursor: pointer;
+  }
+}
+
+.cancelFilter{
+  cursor: pointer;
+}
+
+.banner{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  .badge-count{
+    border-radius: 20px;
+    background: var(--secondary-dark-purple-75, #8653E0);
+    padding: 4px 8px;
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    direction: ltr;
+    font-weight: 500;
+    line-height: 11px;
+    font-size: 11px;
+    color: white;
+  }
+}
+.filters-determinats{
+  margin-left: 8px;
+}
+.cancelFilter{
+  margin-right: 8px;
+}
+:host-context(html[dir='ltr']) {
+  .filters-determinats{
+    margin-right: 8px;
+    margin-left: 0;
+  }
+  .cancelFilter{
+    margin-left: 8px;
+    margin-right: 0;
+  }
+}

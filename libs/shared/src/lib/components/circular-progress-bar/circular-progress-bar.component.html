@@ -1,0 +1,22 @@
+<div class="chart" [style.width.px]="totalSize" [style.height.px]="totalSize"
+    [style.background]="'conic-gradient('+progressColor+' '+360*progress/100+'deg, var(--neutral-200, #E2E8F0) 0deg)'">
+    <div class="chart-inner">
+        <div class="chart-inner-content" [style.width.px]="fillSize" [style.height.px]="fillSize"
+            [style.background]="innerColor">
+
+        </div>
+    </div>
+    <div *ngIf="progress>0" class="chart-start-radius">
+        <div class="chart-start-radius-content" [style.width.px]="(totalSize - fillSize)/2"
+            [style.height.px]="(totalSize - fillSize)/2" [style.background]="progressColor"
+            [style.translate.px]="-1*(totalSize - fillSize)/4"></div>
+    </div>
+    <div *ngIf="progress>0" class="chart-end-radius" [style.rotate]="(360*progress/100)+'deg'">
+        <div class="chart-end-radius-content" [style.width.px]="(totalSize - fillSize)/2"
+            [style.height.px]="(totalSize - fillSize)/2" [style.background]="progressColor"
+            [style.translate.px]="-1*(totalSize - fillSize)/4"></div>
+    </div>
+    <div class="chart-text">
+        {{progress}}%
+    </div>
+</div>

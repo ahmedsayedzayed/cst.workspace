@@ -1,0 +1,23 @@
+<div class="filter-container">
+    <div class="filter-section">
+        <div class="search-input" *ngIf="isQuickSearch">
+            <i class="icon-search"></i>
+            <input id="filterTxt" [ngModel]="filterText" (ngModelChangeDebounced)="filterTextChange.emit($event)"  [rejectSpecialCharacters]="true"
+            type="search" class="form-control" placeholder="{{ searchInputText | abpLocalization }}"/>
+        </div>
+        <button *ngIf="isAdvancedSearch" class="btn btn-outline-light btn-filter-action ms-1" (click)="showAdvancedFilter.emit(true)">
+            <span> {{ advancedSearchText | abpLocalization }}</span>
+            <i class="icon-filter"></i>
+        </button>
+    </div>
+    <div *ngIf="isAdvancedSearch" [class.filter-backdrop]="isShowFilters" (click)="showAdvancedFilter.emit(false)" ></div>
+    <div *ngIf="isAdvancedSearch" class="filters-panel" [class.active]="isShowFilters">
+      <div class="filters-panel-container">
+        <div class="d-flex justify-content-between mb-3 filter-panel-title">
+          <span>{{ '::AdvancedFilter' | abpLocalization }}</span>
+          <span class="close-icon" (click)="showAdvancedFilter.emit(false)"><i class="icon-x"></i></span>
+        </div>
+       <ng-content></ng-content>
+      </div>
+    </div>
+</div>  

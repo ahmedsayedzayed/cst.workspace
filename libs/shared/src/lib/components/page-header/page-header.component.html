@@ -1,0 +1,16 @@
+<div class="card page-header">
+    <div class="card-body page-body" [class.oneLineResponsive]="oneLineResponsive">
+        <div class="d-flex align-items-center">
+            <img *ngIf="icon" class="me-2" [src]="'../../assets/images/breadcrumb_logos/'+icon+'.svg'" [alt]="icon" />
+            <app-base64-file-preview class="me-2" *ngIf="!icon && attachmentIconId !== null && attachmentIconId !== undefined" [previewMode]="PreviewModeEnum.Image"
+                [base64File]="attachmentIconId | attachmentFile:attachmentEntity:attachmentService"></app-base64-file-preview>
+            <div>
+                <p class="title">{{ '::' + pageTitle | abpLocalization }}</p>
+                <app-breadcrumb [isParentRoute]="isParentRoute"></app-breadcrumb>
+            </div>
+        </div>
+        <div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

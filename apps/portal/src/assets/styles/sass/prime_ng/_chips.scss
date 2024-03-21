@@ -1,0 +1,67 @@
+html[dir='rtl'] {
+  .p-chips .p-chips-multiple-container .p-chips-token-icon {
+    margin-right: 0.5rem;
+    margin-bottom: 1px;
+  }
+}
+html[dir='ltr'] {
+  .p-chips .p-chips-multiple-container .p-chips-token-icon {
+    margin-left: 0.5rem;
+    margin-bottom: 1px;
+  }
+}
+
+.p-chips {
+  &:not(.p-disabled):hover {
+    .p-chips-multiple-container {
+      width: 100%;
+      border-color: var(--lpx-primary);
+    }
+  }
+
+  .p-chips-multiple-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    .p-chips-token {
+      padding: math.div(nth(0.75rem 0.75rem, 1), 2) nth(0.75rem 0.75rem, 2);
+      background: #e5e7eb;
+      border-radius: 16px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+
+      &.p-focus {
+        background: #d1d5db;
+        color: #4b5563;
+      }
+    }
+
+    .p-chips-input-token {
+      input {
+        font-family: inherit;
+        font-feature-settings: inherit;
+        font-size: inherit;
+        color: #4b5563;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .p-chips-input-token input::placeholder {
+      color: #999;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+}
+
+p-chips.p-chips-clearable {
+  .p-inputtext {
+    padding-right: nth(0.75rem 0.75rem, 2) + 1rem;
+  }
+
+  .p-chips-clear-icon {
+    color: #6b7280;
+    right: nth(0.75rem 0.75rem, 2);
+  }
+}

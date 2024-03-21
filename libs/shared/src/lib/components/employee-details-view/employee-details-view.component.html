@@ -1,0 +1,100 @@
+<div [class.guide-sidebar-backdrop]="isOpen" (click)="closeSidebar()"></div>
+<div class="guide-sidebar scroll-bar" [class.active]="isOpen">
+    <app-nodata-or-loading *ngIf="isOpen" loaderImage="employee-details-loader.svg" [isLoadingData]="isLoading" [isDataNotEmpty]="employeeData | isNotNullOrEmpty">
+        <div class="guide-sidebar-container">  
+            <i class="flip-icon icon-arrow-left return-icon" (click)="closeSidebar()"></i>
+            <div class="circle-img align-self-center">
+                <app-base64-file-preview
+                [previewMode]="PreviewModeEnum.Image"
+                [base64File]=" employeeData?.imageId | attachmentFile : AttachmentEntities.UserProfileImage.entity : AttachmentEntities.UserProfileImage.module">
+                <ng-template #defaultImage >
+                    <img class="avatar-image" src="../../../../assets/images/profile-avatar.svg" alt="Profile" />
+                  </ng-template>
+                </app-base64-file-preview>
+                <div  *ngIf="employeeData?.availability as status" class="badge-status" 
+                [class.badge-status-success]="status === EmployeeAvailableEnum.Available"
+                [class.badge-status-danger]="status === EmployeeAvailableEnum.Unavailable"
+                [class.badge-status-warning]="status === EmployeeAvailableEnum.Remotely"></div>
+            </div>
+            <div class="d-flex flex-column align-self-center align-items-center gap-point-5">
+                <h5 class="fw-bold text-center text-dark my-0">{{employeeData?.empFullName}}</h5>
+                <div class="text-placeholder fw-bold" *ngIf="employeeData?.jobTitle as jobTitle">{{jobTitle}}</div>
+                <span class="badge badge-success" *ngIf="employeeData?.availability === EmployeeAvailableEnum.Available">( {{'UserProfileService::Profile:EmployeeAvailabilityStatus:1' | abpLocalization }} )</span>
+                <span class="badge badge-error" *ngIf="employeeData?.availability === EmployeeAvailableEnum.Unavailable">( {{'UserProfileService::Profile:EmployeeAvailabilityStatus:2' | abpLocalization }} )</span>
+                <span class="badge badge-warning" *ngIf="employeeData?.availability === EmployeeAvailableEnum.Remotely">( {{'UserProfileService::Profile:EmployeeAvailabilityStatus:3' | abpLocalization }} )</span>
+            </div>
+            <hr class="my-0"/>
+            <ul class="section-card">
+                <label>{{'CMSService::EmployeeGuide:ContactInfo' | abpLocalization }}</label>
+                <li>
+                    <i class="icon-phone"></i>
+                    <span class="px-1">{{'CMSService::EmployeeGuide:WorkNumber' | abpLocalization }} :</span> 
+                    <div class="grid-link" (click)="copyTextToClipboard(employeeData?.phoneNumber)">
+                        <span class="text-black ltr-text"><app-empty [value]="employeeData?.phoneNumber" /></span>
+                    </div>
+                </li>
+                <li>
+                    <i class="icon-device-mobile"></i>
+                    <span class="px-1"> {{'CMSService::EmployeeGuide:MobileNumber' | abpLocalization }} :</span>
+                    <div class="grid-link" (click)="copyTextToClipboard(employeeData?.mobileNumber)">
+                        <span class="text-black ltr-text"><app-empty [value]="employeeData?.mobileNumber" /></span>
+                    </div>
+                </li>
+                <li>
+                    <i class="icon-mail"></i>
+                    <span class="px-1">{{'CMSService::EmployeeGuide:Email' | abpLocalization }} : </span>
+                    <div class="grid-link email-link" (click)="copyTextToClipboard(employeeData?.email)" [ngbTooltip]="employeeData?.email">
+                        <span class="text-black"><app-empty [value]="employeeData?.email" /></span>
+                    </div>
+                </li>
+            </ul>
+            <hr class="my-0"/>
+            <ul class="section-card">
+                <label>{{'CMSService::EmployeeGuide:JobInfo' | abpLocalization }}</label>
+                <li> {{'CMSService::EmployeeGuide:Sector' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.sectorName" /></span></li>
+                <li> {{'CMSService::EmployeeGuide:PublicDepartment' | abpLocalization }} : <span class="text-black"><app-empty [value]="employeeData?.generalDepartmentName" /> </span></li>
+                <li> {{'CMSService::EmployeeGuide:Department' | abpLocalization }} : <span class="text-black"><app-empty [value]="employeeData?.departmentName" /> </span></li>
+                <li> {{'CMSService::EmployeeGuide:DirectManager' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.directManagerName" /></span></li>
+            </ul>
+            <hr class="my-0"/>
+            <ul class="section-card">
+                <label>{{'CMSService::EmployeeGuide:JobLocationInfo' | abpLocalization }}</label>
+                <li class="text-placeholder"> {{'CMSService::EmployeeGuide:BuildingNo' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.buildingName" /></span></li>
+                <li class="text-placeholder"> {{'CMSService::EmployeeGuide:WingNo' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.sectionName" /></span></li>
+                <li class="text-placeholder"> {{'CMSService::EmployeeGuide:FloorNo' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.floorNumber" /></span></li>
+                <li class="text-placeholder"> {{'CMSService::EmployeeGuide:OfficeNo' | abpLocalization }} : <span class="text-black"> <app-empty [value]="employeeData?.officeNumber" /></span></li>
+            </ul>
+            <ng-template [ngIf]="employeeData?.unavailableResone">
+                <hr class="my-0"/>
+                <ul class="section-card">
+                    <li class="text-dark">{{employeeData?.unavailableResone}}</li>
+                    <li class="d-flex justify-content-between">
+                        <div><span>{{'CMSService::EmployeeGuide:VactionFrom' | abpLocalization }} :</span> <span class="ms-1 text-black"><app-empty [value]="employeeData?.unavailableFrom | date:AppConsts.DateOnlyFormat" /></span></div>
+                        <div><span>{{'CMSService::EmployeeGuide:VactionTo' | abpLocalization }} :</span> <span class="ms-1 text-black"><app-empty [value]="employeeData?.unavailableTo | date:AppConsts.DateOnlyFormat" /> </span></div>
+                    </li>
+                </ul>
+            </ng-template>
+            <ng-template [ngIf]="employeeData?.delegatorName">
+                <hr class="my-0"/>
+                <ul class="section-card">
+                    <li><span class="text-placeholder" >{{'CMSService::EmployeeGuide:Delegator' | abpLocalization }} :</span> <span class="text-black">{{employeeData?.delegatorName}} </span></li>
+                    <li *ngIf="employeeData?.delegatorEmail as delegatorEmail"> 
+                        <i class="icon-mail"> </i> 
+                        {{'CMSService::EmployeeGuide:Email' | abpLocalization }}: 
+                        <div class="grid-link email-link" (click)="copyTextToClipboard(delegatorEmail)" [ngbTooltip]="delegatorEmail"> 
+                            <span class="text-black">{{delegatorEmail}}</span>
+                        </div>
+                    </li>
+                    <li *ngIf="employeeData?.delegatorMobile as delegatorMobile"> 
+                        <i class="icon-device-mobile"></i> 
+                        {{'CMSService::EmployeeGuide:MobileNumber' | abpLocalization }}: 
+                        <a class="grid-link" (click)="copyTextToClipboard(delegatorMobile)">
+                            <span class="text-black ltr-text"> {{delegatorMobile}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </ng-template>
+            <div class="mb-2"></div>
+        </div>
+    </app-nodata-or-loading>
+</div>

@@ -1,0 +1,64 @@
+<p-fileUpload *ngIf="moduleName" name="Attachmentfiles" id="Attachmentfiles" class="Attachmentfiles" #pFileUpload
+  [disabled]="isReadonly || isUploading || isRichMaxFileLimit" [class.disabled]="isReadonly"
+  [multiple]="false" (onUpload)="onUpload($event)" (onBeforeUpload)="onBeforeUpload($event)"
+  (onSelect)="onSelect($event)" (onError)="onError($event)" [auto]="true" [accept]="acceptTypes"
+  [maxFileSize]="maxFileSize" url="{{ uploadUrl }}" [fileLimit]="maxFilesCount"
+  [customUpload]="true" (uploadHandler)="uploadFile($event)">
+  <ng-template pTemplate="content">
+    <ng-template [ngIf]="files.length" [ngIfElse]="emptyAttachment">
+      <ng-container [ngTemplateOutlet]="attachmentFiles" [ngTemplateOutletContext]="{files: files}"></ng-container>
+
+      <ul *ngIf="!attachmentFiles" class="cst-files"
+         >
+        <li class="file" *ngFor="let file of files">
+        <div class="file-action d-flex flex-column">
+        <button class="btn btn-light" type="button" (click)="removeFileById(file.id)" *ngIf="!isReadonly"> <i class="icon-x"></i> </button>
+        <button class="btn btn-light" type="button" (click)="download(file)"> <i class="icon-download"></i> </button>
+        <button class="btn btn-light" type="button" *ngIf="file.isImageFile && file.directLink" (click)="previewImage = file.directLink"> <i class="icon-eye"></i> </button>
+        </div>
+          <div class="image-wrap" (click)="(file.isImageFile && file.directLink) ? previewImage = file.directLink : download(file)">
+            <div *ngIf="!file.isImageFile" class="attatchment-image image-{{file.extension}}"></div> 
+            <app-base64-file-preview [previewMode]="PreviewModeEnum.Image" *ngIf="file.isImageFile"
+            [base64File]="file.id | attachmentDetailsFile : entity : moduleName" >
+            </app-base64-file-preview>
+            <span class="file-title" [ngbTooltip]="file.fileName">{{file.fileName}}</span>
+            <span class="file-title">{{file.fileSize | fileSize}}</span>
+          </div>
+        </li>
+        <button class="btn-circular-plus ms-2" type="button" *ngIf="!isReadonly && !isRichMaxFileLimit"
+          (click)="pFileUpload.choose()">
+          <i class="icon-plus text-primary"></i>
+        </button>
+      </ul>
+    </ng-template>
+    <ng-template #emptyAttachment>
+      <div class="landing-upload" (click)="pFileUpload.choose()">
+        <span class="upload-dragdrop">
+          <i class="icon-cloud-upload"></i>
+          <span>
+            <span class="FileUpload">{{ '::FileUpload' | abpLocalization }}&nbsp;</span>
+            <strong>{{ '::DragFileHere' | abpLocalization }}</strong>
+          </span>
+          <span class="file-size"> {{ '::FileUploadLimit' | abpLocalization }} {{ maxFileSize | fileSize }}  {{ '::FileUploadMB' | abpLocalization }} <span>{{fileAcceptTypes}}</span></span>
+        </span>
+      </div>
+    </ng-template>
+
+  </ng-template>
+  <ng-template pTemplate="file">
+      <div class="file-uploading"  *ngIf="uploadingFile as file">
+        <div class="attatchment-image image-{{file.extension}}" ></div> 
+        <div class="file-name"> {{file.name}}</div>
+        <div> {{file.size | fileSize}}</div>
+        <button class="btn btn-outline-danger btn-sm d-flex align-items-center" (click)="cancelUploadingFiles()"> 
+          <i class="icon-x-circle icon-lg"></i> {{'::Attachment:CancelUploading' | abpLocalization}}
+        </button>
+      </div>
+  </ng-template>
+</p-fileUpload>
+<div class="prview-modal" *ngIf="previewImage">
+  <div class="close-button" (click)="previewImage = undefined"><i class="icon-x"></i></div>
+  <app-base64-file-preview [previewMode]="PreviewModeEnum.Image" 
+  [base64File]="previewImage">
+  </app-base64-file-preview>
+</div>

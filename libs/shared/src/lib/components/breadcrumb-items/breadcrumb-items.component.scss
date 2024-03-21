@@ -1,0 +1,93 @@
+@import './apps/portal/src/assets/styles/sass/component';
+
+.text-parent {
+  color: var(--Text-Placeholder, #94A3B8);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.route-name {
+  color: var(--Neutral-500, #64748B);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (max-width: $breakpoint-max-sm) {
+
+  .text-parent,
+  .route-name {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+}
+
+:host-context(html[dir='ltr']) {
+  span.dropdown-item .sub-menu {
+    left: 100%;
+  }
+
+  @media (max-width: $breakpoint-max-md) {
+    .dropdown-menu{
+      margin: 0 -159px !important;
+
+    }
+  }
+}
+
+  
+span.dropdown-item {
+  &:hover .sub-menu {
+    display: inline-block;
+  }
+
+  .sub-menu {
+    display: none;
+    right: 100%;
+    margin-top: -6px;
+    background: #fff;
+    width: 100%;
+  }
+}
+
+
+@media (max-width: $breakpoint-max-md) {
+  .dropdown-menu{
+    margin: 0 -50px !important;
+
+  }
+  span.dropdown-item .sub-menu {
+    display: none !important;
+  }
+  :host::ng-deep {
+    .dropdown-item{
+      padding: 0 ;
+      &:active, &:hover, &:focus{
+        background-color: transparent;
+        color: black;
+      }
+      .menu-item{
+        padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+        &:active{
+          background-color: var(--secondary-dark-purple-100, #5e1ad5);
+          color: white;
+        }
+      }
+    }
+  
+    .sub-menu-mobile {
+      span {
+        padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+        background: var(--bs-dropdown-link-hover-bg);
+      }
+    }
+  }
+}
+
+

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { RemoteEntryComponent } from './entry.component';
 import { remoteRoutes } from './entry.routes';
-import { SharedModule } from '@cst.workspace/shared';
+import { SharedModule } from '@cst-workspace/shared';
 
 
 @NgModule({

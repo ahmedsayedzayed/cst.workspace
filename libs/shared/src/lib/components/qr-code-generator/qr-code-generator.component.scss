@@ -1,0 +1,8 @@
+@import './apps/portal/src/assets/styles/sass/component';
+
+@media (min-width: $breakpoint-md) and (max-width: $breakpoint-max-xl) {
+  img {
+    width: 100px;
+    height: 100%;
+  }
+}

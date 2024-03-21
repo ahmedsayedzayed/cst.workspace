@@ -1,0 +1,192 @@
+@import './apps/portal/src/assets/styles/sass/component';
+
+.confirmation {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1060;
+
+  .confirmation-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1061 !important;
+  }
+
+  .confirmation-dialog {
+    display: flex;
+    flex-direction: column;
+    /* margin: 20px auto; */
+    padding: 40px;
+    width: 500px;
+    // min-height: 250px;
+    z-index: 1062 !important;
+    // gap: 24px;
+    border-radius: 20px;
+    @media screen and (max-width: $breakpoint-max-sm) {
+      width: 90vw;
+    }
+
+    .icon-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.warning,
+      &.info {
+        .icon {
+          display: none;
+        }
+      }
+
+      .icon {
+        font-size: 84px;
+
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      // gap: 24px;
+
+      .title {
+        display: block;
+        margin: 0;
+        line-height: 28px;
+        // padding-bottom: 15px;
+        font-size: 20px;
+        font-weight: 800;
+        text-align: center;
+        color: var(--text-body, #1e293b);
+      }
+
+      .message {
+        display: block;
+        line-height: 24px;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        color: var(--text-body, #1e293b);
+        margin-top: 24px;
+        margin-bottom: 16px;
+      }
+
+      .sub-message {
+        display: flex;
+        /* margin: 10px 20px; */
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        gap: 10px;
+        margin-bottom: 16px;
+
+        &.alert-danger {
+          color: var(--status-danger-600, #e11d48);
+        }
+
+        &.alert-info {
+          color: var(--text-body, #1e293b);
+
+          i {
+            color: var(--status-info-400, #38bdf8);
+          }
+        }
+
+        i {
+          font-size: 24px;
+          margin-top: -6px;
+        }
+
+        p {
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+        }
+      }
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      margin-top: 8px;
+
+      .confirmation-button {
+        display: inline-block;
+        // margin: 0px 5px;
+        padding: 16px 48px;
+        border: none;
+        border-radius: 8px !important;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+
+      .confirmation-button--reject {
+        border-radius: 8px;
+        border: 1px solid var(--neutral-400, #94a3b8);
+        padding: 16px 48px;
+        background-color: transparent;
+        color: var(--neutral-500, #64748b);
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        border-radius: 8px !important;
+        // margin: 0 9px;
+      }
+
+      .confirmation-button--approve {
+        &.success {
+          background: var(--status-success-600, #0d9488);
+        }
+
+        &.error {
+          background: var(--status-danger-600, #e11d48);
+        }
+      }
+    }
+  }
+}
+.alert-info {
+  border: 1px solid var(--status-info-400, #38bdf8);
+  background: var(--status-info-100, #e0f2fe);
+}
+.alert-danger {
+  border: 1px solid var(--status-danger-400, #fb7185);
+  background: var(--status-danger-50, #fff1f2);
+}
+.alert-info p,
+.alert-danger p {
+  text-align: start;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 22px;
+  margin-bottom: 0;
+}
+.sub-message.text-muted {
+  display: block !important;
+  text-align: center;
+}
+.confirmation .confirmation-dialog .icon-container.success .icon {
+  stroke: #0d9488;
+  color: #0d9488;
+}
+@media (max-width: $breakpoint-max-md) {
+  .confirmation-button,
+  .confirmation-button--reject {
+    padding: 0.8rem 1.3rem !important;
+  }
+}

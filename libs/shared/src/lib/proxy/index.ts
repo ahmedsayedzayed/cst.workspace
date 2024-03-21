@@ -1,0 +1,11 @@
+import * as Cmsservice from './cmsservice';
+import * as IdentityService from './identity-service';
+import * as Microsoft from './microsoft';
+import * as NotificationService from './notification-service';
+import * as Ocelot from './ocelot';
+import * as RemedyService from './remedy-service';
+import * as RequestService from './request-service';
+import * as TaskService from './task-service';
+import * as UserProfileService from './user-profile-service';
+import * as Volo from './volo';
+export { Cmsservice, IdentityService, Microsoft, NotificationService, Ocelot, RemedyService, RequestService, TaskService, UserProfileService, Volo };

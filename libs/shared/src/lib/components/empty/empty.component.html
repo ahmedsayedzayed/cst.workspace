@@ -1,0 +1,3 @@
+<ng-template [ngIf]="value !== null && value !== undefined" [ngIfElse]="emptyDiv">{{value}}</ng-template>
+<ng-template #emptyDiv> <span class="text-empty"> {{'::Unset' | abpLocalization}} </span></ng-template>
+

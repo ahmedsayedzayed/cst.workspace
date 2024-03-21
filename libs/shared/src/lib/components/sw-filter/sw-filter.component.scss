@@ -1,0 +1,58 @@
+@import './apps/portal/src/assets/styles/sass/component';
+
+.filter-section{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+@media (max-width:$breakpoint-max-lg){
+    .filter-container{
+        margin-top: 8px;
+        .filter-section{
+            .search-input{
+                flex-grow: 2;
+                input{
+                    width: 100%;
+                }
+            }
+            .btn-filter-action{
+                padding: 0.75rem 0.5rem;
+                border-radius: 5rem;
+                border: 1px solid var(--neutral-200, #E2E8F0);
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+@media (max-width:$breakpoint-max-md){
+    .filter-container{
+        .filter-section{
+            .btn-filter-action{
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.btn-filter-action {
+    border: 1px solid var(--Neutral-200, #E2E8F0);
+    border-radius: 80px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    // padding-left: 12px;
+    // padding-right: 12px;
+    padding: 12px 16px;
+    .icon-filter {
+        font-size: 1.4rem;
+        line-height: 0;
+    }
+    &:hover{
+        background-color: var(--bs-btn-hover-bg);
+        border-color: var(--bs-btn-hover-border-color);
+    }
+}

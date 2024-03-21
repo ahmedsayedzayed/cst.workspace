@@ -1,0 +1,55 @@
+<div *ngIf="isMediaPreviewVisible" class="media-preview">
+  <div class="icon-x-container"><i class="icon-x" role="button" (click)="closeMediaPreview()"></i></div>
+  <div class="title">{{ mediaPreviewInput?.title }}  <span *ngIf="mediaPreviewInput.images?.length && !mediaPreviewInput.attachmentImageId"> - {{selectedMediaFileIndex + 1}}</span></div>
+  <ng-container *ngIf="mediaPreviewInput.mediaType === MediaTypes.Image">
+    <div class="selected-image-container" *ngIf="mediaPreviewInput.images?.length">
+      <i role="button" (click)="selectedMediaFileIndex = selectedMediaFileIndex > 0  ? selectedMediaFileIndex-1:0"
+        class="flip-icon icon-chevron-right"></i>
+      <div class="selected-image">
+        <app-base64-file-preview [previewMode]="PreviewModeEnum.Image"
+          [base64File]="mediaPreviewInput.images[selectedMediaFileIndex] | attachmentDetailsFile:mediaPreviewInput.entity:mediaPreviewInput.module"></app-base64-file-preview>
+      </div>
+      <i role="button"
+        (click)="selectedMediaFileIndex = selectedMediaFileIndex < mediaPreviewInput.images?.length -1 ? selectedMediaFileIndex+1:selectedMediaFileIndex+0"
+        class="flip-icon icon-chevron-left"></i>
+    </div>
+    <div class="selected-image-container single-img-attachment" *ngIf="mediaPreviewInput.attachmentImageId">
+      <div class="selected-image">
+        <app-base64-file-preview [previewMode]="PreviewModeEnum.Image"
+          [base64File]="mediaPreviewInput.attachmentImageId | attachmentFile:mediaPreviewInput.entity:mediaPreviewInput.module"></app-base64-file-preview>
+      </div>
+    </div>
+    <div class="download-selected-image-container" *ngIf="mediaPreviewInput.attachmentImageId">
+      <app-base64-file-preview [previewMode]="PreviewModeEnum.Link"
+        [base64File]="mediaPreviewInput.attachmentImageId | attachmentFile:mediaPreviewInput.entity:mediaPreviewInput.module">
+        <ng-template #customLinkTemplate>
+          <span class="download-selected-image-button" role="button">{{'::Download'|abpLocalization}}<i class="icon-download"></i></span>
+        </ng-template></app-base64-file-preview>
+    </div>
+    <div class="images-list-wrapper" *ngIf="mediaPreviewInput.images?.length">
+      <div class="download-selected-image-container" *ngIf="mediaPreviewInput.images?.length">
+        <app-base64-file-preview [previewMode]="PreviewModeEnum.Link"
+          [base64File]="mediaPreviewInput.images[selectedMediaFileIndex] | attachmentDetailsFile:mediaPreviewInput.entity:mediaPreviewInput.module">
+          <ng-template #customLinkTemplate>
+            <span class="download-selected-image-button" role="button">{{'::Download'|abpLocalization}}<i class="icon-download"></i></span>
+          </ng-template></app-base64-file-preview>
+      </div>
+  
+      <ng-scrollbar [track]="'horizontal'">
+        <div class="images-list-container">
+          <div [class.selected]="selectedMediaFileIndex === index" (click)="selectedMediaFileIndex = index"
+            *ngFor="let file of mediaPreviewInput.images;let index=index">
+            <app-base64-file-preview [previewMode]="PreviewModeEnum.Image"
+              [base64File]="mediaPreviewInput.images[index] | attachmentDetailsFile:mediaPreviewInput.entity:mediaPreviewInput.module"></app-base64-file-preview>
+          </div>
+        </div>
+      </ng-scrollbar>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="mediaPreviewInput.mediaType === MediaTypes.Youtube">
+    <div class="video-container">
+      <iframe *ngIf="videoUrl" title="video" [src]="videoUrl">
+      </iframe>
+    </div>
+  </ng-container>
+</div>

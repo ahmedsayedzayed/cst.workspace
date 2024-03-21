@@ -1,0 +1,273 @@
+<div class="row">
+  <div class="col-sm-12 col-lg-12 col-xs-12" [ngClass]="showEventsMonth? 'col-xl-9' : 'col-xl-12'">
+    <div class="card mb-0" [ngClass]="!isAgendaActive ? 'rounded-0 rounded-top' : '' ">
+      <div class="d-flex flex-wrap justify-content-between align-items-center text-center mx-2 mb-2">
+            <div class="btn-group mt-2">
+              <div
+              class="btn calendar-view-btn border-0"
+              (click)="openAgenda()"
+              [class.active]="isAgendaActive"
+            >
+             {{'CMSService::Calendar:Agenda' | abpLocalization }}
+            </div>
+             <div
+                class="btn calendar-view-btn border-0"
+                (click)="setView(CalendarView.Day)"
+                [class.active]="view === CalendarView.Day"
+              >
+                {{'CMSService::Calendar:Day' | abpLocalization}}
+              </div>
+              <div
+                class="btn calendar-view-btn border-0"
+                (click)="setView(CalendarView.Week)"
+                [class.active]="view === CalendarView.Week"
+              >
+                {{'CMSService::Calendar:Week' | abpLocalization}}
+              </div>
+              <div
+              class="btn calendar-view-btn border-0"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              {{'CMSService::Calendar:Month' | abpLocalization}}
+            </div>
+            </div>
+            <div class="mt-2" *ngIf="!isAgendaActive">
+              <h4 class="viewDate">
+                {{isCurrentLanguageAr? (viewDate | calendarDate:(view + 'ViewTitle'):'ar') 
+                                     : (viewDate | calendarDate:(view +'ViewTitle'):'en')}}
+              </h4>
+          </div>
+          <div class="mt-2" *ngIf="isAgendaActive">
+            <h4 class="viewDate"> {{ viewAgendaStartDate}} - {{viewAgendaEndDate}}</h4>
+          </div>
+            <div *ngIf="!isAgendaActive" class="mt-2">
+              <div
+              class="btn today-btn"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+            >
+             {{'CMSService::Calendar:Today' | abpLocalization }}
+            </div>
+              <div
+                class="btn btn-primary arrow-btn mx-2"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+              >
+              <i class="flip-icon icon-chevron-right d-inline-block"></i>
+              </div>
+             
+              <div
+                class="btn btn-primary arrow-btn"
+                mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+              >
+              <i class="flip-icon icon-chevron-left d-inline-block"></i>
+              </div>
+          </div>
+         <div *ngIf="isAgendaActive"></div>
+      </div>
+    
+  </div>
+      <div *ngIf="!isAgendaActive">
+          <ng-template #customCellTemplate let-day="day" let-locale="locale" >
+              <div class="cal-cell-top">
+                <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+                  >{{ day.badgeTotal }}</span
+                >
+                <span class="cal-day-number"
+                  >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+                >
+              </div>
+              <div *ngFor="let event of datesRangeList" >
+                  <small class="ellipsis-text" [ngClass]="eventMonthType(event.type)"
+                         [style.width]="showEventsMonth? '8.5vw':'6.67vw'"
+                         *ngIf="eventMonth(event.start, day.date)"
+                         (click)="openModal(event.id)">
+                         {{event.title}}
+                  </small>
+              </div>
+              
+            </ng-template>
+            <div [ngSwitch]="view">
+              <mwl-calendar-month-view
+                *ngSwitchCase="CalendarView.Month"
+                [viewDate]="viewDate"
+                [events]="events"
+                [cellTemplate]="customCellTemplate"
+              >
+              </mwl-calendar-month-view>
+              <mwl-calendar-week-view
+                *ngSwitchCase="CalendarView.Week"
+                [viewDate]="viewDate"
+                [events]="events"
+              >
+              </mwl-calendar-week-view>
+              <mwl-calendar-day-view
+                *ngSwitchCase="CalendarView.Day"
+                [viewDate]="viewDate"
+                [events]="events"
+              >
+              </mwl-calendar-day-view>
+            </div>
+      </div>
+      <!-- Agenda -->
+      
+      <div *ngIf="isAgendaActive" class="agenda">
+          <div *ngFor="let agenda of agendaList">
+              <h3 class="agenda-date mt-2 pt-1">{{agenda.start | date: AppConsts.DateOnlyWithDayNameFormat}}</h3>
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex align-items-center">
+                          <div class="circle" [style.background]="eventType(agenda.type)"></div>
+                          <h4 class="agenda-title mb-0">{{agenda.title}}</h4>
+                      </div>
+                      <p class="agenda-content px-2">{{agenda.content}}</p>
+                      <hr class="line">
+                      <div class="d-flex flex-wrap justify-content-between start-end-row">
+                          <div class="fw-bold d-flex align-items-center">
+                              <span class="start">{{'CMSService::Calendar:Start' | abpLocalization }} :</span>
+                              <div class="mx-2 d-flex align-items-center">
+                                  <i class="flip-icon icon-calendar text-muted"></i>
+                                  <span class="text-dark date-start">{{agenda.start | date:AppConsts.DateOnlyFormat}}</span>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                  <i class="flip-icon icon-clock text-muted"></i>
+                                  <span class="text-dark date-start">{{agenda.start |date: AppConsts.TimeOnlyFormat}}</span>
+                              </div>
+                          </div>
+                          <div class="fw-bold d-flex align-items-center">
+                              <span class="end">{{'CMSService::Calendar:End' | abpLocalization }} :</span>
+                              <div class="mx-2 d-flex align-items-center">
+                                  <i class="flip-icon icon-calendar text-muted"></i>
+                                  <span class="text-dark date-end">{{agenda.end | date:AppConsts.DateOnlyFormat}} </span>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                  <i class="flip-icon icon-clock text-muted"></i>
+                                  <span class="text-dark date-end">{{agenda.end |date: AppConsts.TimeOnlyFormat}} </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        
+          <div class="my-4">
+            <app-nodata-or-loading 
+            loaderImage="data-view-loader.svg" 
+            [isLoadingData]="isLoading"
+            [isDataNotEmpty]="agendaList.length > 0"
+            nodataImage="Schedule.svg"
+            nodataMessage="CMSService::NoCalendarCurrently"
+          >
+          </app-nodata-or-loading>
+          </div>
+        
+      </div>
+      <div class="form-group py-2" *ngIf="showEventsMonth">
+        <div class="image-alert d-flex align-items-start">
+          <img src="../../../../../assets/images/information-circle.svg" alt="" class="me-1 info-icon">
+          <span>{{'CMSService::calendarHint' | abpLocalization }}</span>
+        </div>
+    </div>
+  </div>
+  
+      <div class="col-xl-3  col-lg-12 col-sm-12 col-xs-12" *ngIf="showEventsMonth">
+        <div class="card events-month-card">
+          <div class="d-flex align-items-center">
+            <span class="events-month">{{'CMSService::Calendar:events-month' | abpLocalization }} </span>
+            <span class="events-count px-1" *ngIf="eventsMonth.length >1">({{eventsMonth.length}} {{'CMSService::Calendar:events' | abpLocalization }})</span>
+            <span class="events-count px-1" *ngIf="eventsMonth.length <=1">({{eventsMonth.length}} {{'CMSService::Calendar:event' | abpLocalization }})</span>
+          </div>
+          <hr class="events-line">
+          <div class="scroll-bar">
+            <div *ngFor="let event of eventsMonth;let i=index" class="hoverEvent" 
+                 (mouseenter)="hoverEventMonth(event.type, i)"
+                 (mouseleave)="onMouseLeave(i)">
+              <div class="cursor-pointer eventsMonth-content" (click)="openModal(event.id)">
+              <span class="date-month">
+                {{event.start | date}} 
+                <span class="px-1"> - </span>
+                {{event.end | date}}
+                </span>
+              <div class="d-flex align-items-center mt-1">
+                <div class="circle" [style.background]="eventType(event.type)"></div>
+                <h4 class="agenda-title mb-0">{{event.title}}</h4>
+              </div>
+              <p class="agenda-content eventsMonth-details">{{event.content}}</p>
+            </div>
+            <hr class="eventsMonth-line" *ngIf="i !== eventsMonth.length-1">
+            <div class="text-center" *ngIf="eventsMonth.length === 0">
+              <p>{{'CMSService::Calendar:no-events-month' | abpLocalization }}</p>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+<abp-modal [(visible)]="isModalOpen"  [options]="modalOptions">
+    <ng-template #abpBody>
+        <h3 class="event-title text-center mb-1">{{eventDetails?.title}}</h3>
+        <p class="text-center" [style.color]="eventType(eventDetails?.type)">({{ 'CMSService::Calendar:TypesEnum:'+eventDetails?.type | abpLocalization }})</p>
+        <p class="event-content">{{eventDetails?.content}}</p>
+        <hr>
+        <div class="d-flex flex-wrap justify-content-between mb-2">
+          <div class="item" *ngIf="eventDetails?.location">
+            <span class="start">{{ 'CMSService::Calendar:Location' | abpLocalization }} :</span>
+            <span class="text-dark date-start fw-bold"> {{'CMSService::Calendar:Location:'+eventDetails?.location | abpLocalization}}
+            </span>
+            <span class="text-dark date-start fw-bold" *ngIf="eventDetails?.location === outSideLocation && eventDetails?.city && eventDetails?.address">( {{eventDetails?.city}} - {{eventDetails?.address}} )</span>
+          </div>
+          <div class="item" *ngIf="eventDetails?.sectorName"> 
+            <span class="start">{{ 'CMSService::Calender:Sector' | abpLocalization }} :</span>
+            <span class="text-dark date-start fw-bold"> {{eventDetails?.sectorName}}</span>
+          </div>
+          <div class="item" *ngIf="eventDetails?.mainDepartmentName">
+            <span class="start">{{ 'CMSService::Calendar:Management' | abpLocalization }} : </span>
+            <span class="text-dark date-start fw-bold">{{ eventDetails?.mainDepartmentName }}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="fw-bold d-flex align-items-center">
+                <span class="start">{{'CMSService::Calendar:Start' | abpLocalization }} :</span>
+                <div class="mx-2">
+                    <i class="flip-icon icon-calendar text-muted"></i>
+                    <span class="text-dark date-start">{{eventDetails?.start | date:AppConsts.DateOnlyFormat}}</span>
+                </div>
+                <div>
+                    <i class="flip-icon icon-clock text-muted"></i>
+                    <span class="text-dark date-start">{{eventDetails?.start |date: AppConsts.TimeOnlyFormat}}</span>
+                </div>
+            </div>
+            <div class="fw-bold d-flex align-items-center">
+                <span class="end">{{'CMSService::Calendar:End' | abpLocalization }} :</span>
+                <div class="mx-2">
+                    <i class="flip-icon icon-calendar text-muted"></i>
+                    <span class="text-dark date-end">{{eventDetails?.end | date:AppConsts.DateOnlyFormat}} </span>
+                </div>
+                <div>
+                    <i class="flip-icon icon-clock text-muted"></i>
+                    <span class="text-dark date-end">{{eventDetails?.end |date: AppConsts.TimeOnlyFormat}} </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </ng-template>
+  
+    <ng-template #abpFooter>
+      <button class="btn btn-primary" buttonType="submit" (click)="subscribeEvent()">
+        <span> {{ 'CMSService::Calendar:Subscribe' | abpLocalization }} </span>
+        <i class="flip-icon icon-arrow-left d-inline-block"></i>
+      </button>
+      <button type="button" class="btn-cancel" abpClose>
+        {{ 'AbpUi::Close' | abpLocalization }}
+      </button>
+    </ng-template>
+  </abp-modal>
+

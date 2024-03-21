@@ -1,0 +1,10 @@
+<div class="d-flex w-100">
+    <div class="date-picker-container  me-2 w-100" (click)="dateCompnent.toggle()">
+      <input #dateCompnent="ngbDatepicker" class="form-control" name="datepicker" [(ngModel)]="date" ngbDatepicker />
+      <div class="date-picker-icon">
+        <i class="icon-x mx-1" (click)="resetDatepicker(dateCompnent)" *ngIf="date"></i>
+        <i class="icon-calendar"></i>
+      </div>
+    </div>
+    <ngb-timepicker [(ngModel)]="time"  />
+</div>

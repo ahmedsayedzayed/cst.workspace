@@ -1,0 +1,43 @@
+<div *ngIf="files" class="attachment-container">
+  <div *ngFor="let data of files;let index=index" class="attachment">
+    <div
+      *ngIf="
+      data.extension ==='png' ||  data.extension ==='jpg' ||
+      data.extension ==='jpeg' ||data.extension ==='bmp'||data.extension ==='gif' || data.extension ==='tiff'||data.extension ==='tif'"
+      class="image-container " (click)="showMediaPreview(data,index)">
+      <app-base64-file-preview [previewMode]="PreviewModeEnum.Image" [base64File]="
+        data.id | attachmentDetailsFile : entity : moduleName
+      ">
+      </app-base64-file-preview>
+    </div>
+    <div *ngIf="data.extension === 'docx' || data.extension === 'doc'" class="image-container">
+      <app-base64-file-preview [previewMode]="PreviewModeEnum.Link" [base64File]="
+        data.id
+          | attachmentDetailsFile : entity : moduleName
+      ">
+        <ng-template #customLinkTemplate>
+          <div class="attachment-preview">
+            <img type="doc" src="../../../../assets/images/word-outline.svg" alt="" />
+            <span class="title" placement="top" container="body"
+              ngbTooltip="{{data?.fileName}}">{{data?.fileName}}</span>
+          </div>
+        </ng-template>
+      </app-base64-file-preview>
+    </div>
+    <div *ngIf="data.extension === 'pdf'" class=" image-container">
+      <app-base64-file-preview [previewMode]="PreviewModeEnum.Link" [base64File]="
+        data.id
+          | attachmentDetailsFile : entity : moduleName
+      ">
+        <ng-template #customLinkTemplate>
+          <div class="attachment-preview">
+            <img type="pdf" src="../../../../assets/images/pdf-outline.svg" alt="" />
+            <span class="title" placement="top" container="body"
+              ngbTooltip="{{data?.fileName}}">{{data?.fileName}}</span>
+          </div>
+        </ng-template>
+      </app-base64-file-preview>
+    </div>
+  </div>
+</div>
+<app-media-preview #preview></app-media-preview>

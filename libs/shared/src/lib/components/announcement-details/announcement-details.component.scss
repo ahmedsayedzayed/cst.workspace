@@ -1,0 +1,64 @@
+.header{
+  color: var(--Text-Body, #1E293B);
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.btn-cancel {
+    border-radius: 8px;
+    border: 1px solid var(--neutral-400, #94a3b8);
+    padding: 8px 30px;
+    background-color: transparent;
+    color: var(--neutral-500, #64748b);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    &:hover {
+      background: #64748b13;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+  .anouncement-details{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    .date{
+      display: flex;
+      justify-content: center;
+      color: var(--text-placeholder, #94A3B8);
+      flex-wrap: wrap;
+      text-align: center;
+      font-size:0.875rem;
+      font-weight: 500;
+      line-height: 24px;
+    }
+    .title{
+      color: var(--text-body, #1E293B);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 24px; 
+    }
+    .category{
+      color: var(--text-body, #1E293B);
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 24px; 
+      label{
+        color: var(--text-placeholder, #94A3B8);
+      }
+    }
+    .content{
+      color: var(--text-body, #1E293B);
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 24px; 
+    }
+  }
+
+::ng-deep{
+  .announcement-backdrop.modal-backdrop.show{
+    background: #000;
+    opacity: 0.75;
+  }
+}

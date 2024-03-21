@@ -1,0 +1,30 @@
+.badge-status{
+    border-radius: 4px;
+    padding: 2px 18px;
+    display: inline-flex;
+    color: white;
+    font-weight: 700;
+    font-size: 0.75rem;
+    &.badge-status-1001{
+        background: #5E1AD50F;
+        color: #000;
+    }
+    &.badge-status-1002{
+        background: #38BDF8;
+    }
+    &.badge-status-1003{
+        background: #F59E0B;
+    }
+    &.badge-status-1004{
+        background: var(--lpx-success); 
+    }
+    &.badge-status-1005{
+        background: var(--lpx-danger);
+    }
+    &.badge-status-1006{
+        background: var(--lpx-primary);;
+    }
+    &.badge-status-1007{
+        background: #94A3B8;
+    }
+}

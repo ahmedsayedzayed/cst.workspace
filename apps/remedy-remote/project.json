@@ -8,19 +8,25 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/remedy-remote",
         "index": "apps/remedy-remote/src/index.html",
         "main": "apps/remedy-remote/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/remedy-remote/tsconfig.app.json",
-        "inlineStyleLanguage": "sass",
+        "inlineStyleLanguage": "scss",
         "assets": [
           "apps/remedy-remote/src/favicon.ico",
           "apps/remedy-remote/src/assets"
         ],
-        "styles": ["apps/remedy-remote/src/styles.sass"],
+        "styles": [
+          "apps/remedy-remote/src/styles.scss"
+        ],
         "scripts": [],
         "customWebpackConfig": {
           "path": "apps/remedy-remote/webpack.config.ts"

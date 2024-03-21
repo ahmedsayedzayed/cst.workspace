@@ -1,0 +1,42 @@
+<!-- loading finished case -->
+<ng-content *ngIf="!isLoadingData && isDataNotEmpty"></ng-content>
+
+<!-- loading case -->
+<div *ngIf="isLoadingData" class="w-100 loader-image">
+    <img *ngIf="loaderImage" [style.height]="loaderImageHeight" class="shimmer w-100 img-fluid" [class.flip-icon]="flipLoadingImage"
+        [src]="'./assets/images/loaders/'+loaderImage" alt="loader" />
+    <span *ngIf="!loaderImage">{{'CMSService::LoadingData'|abpLocalization}}</span>
+</div>
+
+<!-- nodata case -->
+<div *ngIf="!isLoadingData && !isDataNotEmpty && !isDataFiltered" class="nodata-container">
+    <div *ngIf="nodataImage" class="nodata-image"><img [src]="'./assets/images/nodata/'+nodataImage" alt="nodata"></div>
+    <div class="nodata-text">
+        <div *ngIf="!nodataMessage && !nodataHint" class="nodata-message">{{'CMSService::NoData' | abpLocalization}}</div>
+        <div *ngIf="nodataMessage" class="nodata-message">{{nodataMessage | abpLocalization}}</div>
+        <div *ngIf="nodataHint" class="nodata-hint">
+            {{nodataHint|abpLocalization}}
+            <span *ngIf="nodataLink" role="button" [routerLink]="nodataLink" class="nodata-link">{{'::FromHere' | abpLocalization}}</span>
+        </div>
+        <div *ngIf="showBtn">
+            <button
+            class="btn btn-sm btn-primary  d-flex align-items-center"
+            (click)="actionEvent()"
+             >
+            {{ buttonText | abpLocalization }}
+          </button>
+        </div>
+    </div>
+</div>
+
+<!-- no filter result case -->
+<div *ngIf="!isLoadingData && !isDataNotEmpty && isDataFiltered" class="nodata-container">
+    <div *ngIf="noFilterResultImage" class="nodata-image"><img [src]="'./assets/images/nodata/'+(noFilterResultImage)" alt="nodata"></div>
+    <div class="nodata-text">
+        <div *ngIf="!noFilterResultMessage && !noFilterResultHint" class="nodata-message">{{'CMSService::NoDataAfterFiltering' | abpLocalization}}</div>
+        <div *ngIf="noFilterResultMessage" class="nodata-message">{{noFilterResultMessage | abpLocalization}}</div>
+        <div *ngIf="noFilterResultHint" class="nodata-hint">
+            {{noFilterResultHint|abpLocalization}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<ng-container *ngIf="previewMode === PreviewModeEnum.Image">
+  <img *ngIf="imageUrl" [src]="imageUrl" [class]="previewClass" alt="loading.." class="image"  (error)="error($event)">
+  <div *ngIf="!imageUrl" class="image-container">
+    <ng-container [ngTemplateOutlet]="defaultImage"></ng-container>
+  </div>
+</ng-container>
+
+<div *ngIf="previewMode === PreviewModeEnum.Link" (click)="downloadFile()">
+  <ng-container [ngTemplateOutlet]="customLinkTemplate || defaultTemplate"></ng-container>
+</div>
+
+<ng-template #defaultTemplate>
+  <button type="button">Download</button>
+</ng-template>

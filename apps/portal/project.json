@@ -19,13 +19,97 @@
           "zone.js"
         ],
         "tsConfig": "apps/portal/tsconfig.app.json",
-        "inlineStyleLanguage": "sass",
+        "inlineStyleLanguage": "scss",
         "assets": [
           "apps/portal/src/favicon.ico",
           "apps/portal/src/assets"
         ],
         "styles": [
-          "apps/portal/src/styles.sass"
+          {
+            "input": "apps/portal/src/assets/styles/css/light.css",
+            "inject": false,
+            "bundleName": "light"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/light.css",
+            "inject": false,
+            "bundleName": "dark"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/bootstrap-light.css",
+            "inject": false,
+            "bundleName": "bootstrap-light"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/bootstrap-light.css",
+            "inject": false,
+            "bundleName": "bootstrap-dark"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/ng-bundle.css",
+            "inject": false,
+            "bundleName": "ng-bundle"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/layout-bundle.css",
+            "inject": false,
+            "bundleName": "layout-bundle"
+          },
+          {
+            "input": "node_modules/@volosoft/abp.ng.theme.lepton-x/assets/css/abp-bundle.css",
+            "inject": false,
+            "bundleName": "abp-bundle"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/light.rtl.css",
+            "inject": false,
+            "bundleName": "light.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/light.rtl.css",
+            "inject": false,
+            "bundleName": "dark.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/bootstrap-light.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-light.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/bootstrap-light.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-dark.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/font-bundle.css",
+            "inject": false,
+            "bundleName": "font-bundle"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/font-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "font-bundle.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/ng-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "ng-bundle.rtl"
+          },
+          {
+            "input": "apps/portal/src/assets/styles/css/layout-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "layout-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/abp.ng.theme.lepton-x/assets/css/abp-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "abp-bundle.rtl"
+          },
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+          "apps/portal/src/styles.scss",
+          "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+          "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+          "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css"
         ],
         "scripts": [],
         "customWebpackConfig": {
@@ -42,8 +126,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "6kb",
-              "maximumError": "10kb"
+              "maximumWarning": "2kb",
+              "maximumError": "100kb"
             }
           ],
           "outputHashing": "all",

@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-remedy-remote-entry',
   template: `
   Ahmed
-  <lib-test></lib-test>
   `,
 })
 export class RemoteEntryComponent {}

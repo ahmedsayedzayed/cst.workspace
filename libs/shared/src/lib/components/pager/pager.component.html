@@ -1,0 +1,41 @@
+<div class="app-pager">
+    <ul class="d-flex align-items-center list-unstyled mb-0">
+        <li class=" flip-icon" [class.disabled]="!canPrevious()">
+            <a role="button" aria-label="go to first page" href="javascript:void(0)" (click)="selectPage(1)">
+                <i class="icon-chevron-double-right inactive"></i>
+            </a>
+        </li>
+        <li class=" flip-icon" [class.disabled]="!canPrevious()">
+            <a role="button" aria-label="go to previous page" href="javascript:void(0)" (click)="prevPage()">
+                <i class="icon-chevron-right inactive"></i>
+            </a>
+        </li>
+        <li role="button" [attr.aria-label]="'page ' + pg.number" class="pages" *ngFor="let pg of pages">
+            <a class="inactive" [ngClass]="{'bg-primary text-white rounded active': pg.number === page}"
+                href="javascript:void(0)" (click)="selectPage(pg.number)">
+                {{ pg.text }}
+            </a>
+        </li>
+        <li class=" flip-icon" [class.disabled]="!canNext()">
+            <a role="button" aria-label="go to next page" href="javascript:void(0)" (click)="nextPage()">
+                <i class="icon-chevron-left inactive"></i>
+            </a>
+        </li>
+        <li class=" flip-icon" [class.disabled]="!canNext()">
+            <a role="button" aria-label="go to last page" href="javascript:void(0)" (click)="selectPage(totalPages)">
+                <i class="icon-chevron-double-left inactive"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="d-flex align-items-center  paging-list">
+        <label for="maxResultCountDDL" class="me-2 text-black text-small">
+            {{'CMSService::pager:itemsCount'|abpLocalization}}
+        </label>
+        <div class="items-count-select">
+            <select id="maxResultCountDDL" [(ngModel)]="size" (ngModelChange)="pageSizeChanged.emit(size)" class="form-control py-1 ps-1" >
+                <option *ngFor="let option of maxResultCountOptions" [value]="option">{{option}}</option>
+            </select>
+            <i class="rot icon-chevron-down"></i>
+        </div>
+    </div>
+</div>

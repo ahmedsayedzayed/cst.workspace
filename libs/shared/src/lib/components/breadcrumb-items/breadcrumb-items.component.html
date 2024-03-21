@@ -1,0 +1,64 @@
+<div class="d-flex sub-text align-items-center" >
+  <span type="button" class="text-parent" routerLink="/">{{
+    '::Breadcrumb:MainPage' | abpLocalization
+  }}</span>
+
+  <ng-template [ngIf]="node">
+    <span class="mx-2 text-parent">/</span>
+
+    <div
+      *ngIf="node.children && node.children.length; else nodeHasNoChildren"
+      ngbDropdown
+      class="d-flex align-items-center"
+    >
+      <span class="route-name" type="button" id="parentNode" ngbDropdownToggle>
+        {{ node.name | abpLocalization }}<i class="icon-chevron-down ms-1 text-muted"></i
+      ></span>
+      <div ngbDropdownMenu aria-labelledby="parentNode">
+        <span
+          type="button"
+          ngbDropdownItem
+          [routerLink]="child.path"
+          *ngFor="let child of node.children"
+          (click)="expandSubMenu(child)"
+          class="d-flex justify-content-between flex-column flex-lg-row" 
+        >
+          <div class="menu-item d-flex justify-content-between">
+            {{ child.name | abpLocalization }}
+            <i class="icon-chevron-left flip-icon" *ngIf="child.children.length"></i>
+          </div>
+          <div class="sub-menu dropdown-menu" *ngIf="child.children.length">
+            <span
+              type="button"
+              ngbDropdownItem
+              [routerLink]="subChild.path"
+              *ngFor="let subChild of child.children"
+            >
+              {{ subChild.name | abpLocalization }}
+            </span>
+          </div>
+
+          <div
+            class="sub-menu-mobile d-md-none"
+            *ngIf="child.children.length && $any(child).isExpanded"
+          >
+            <span
+              type="button"
+              ngbDropdownItem
+              [routerLink]="subChild.path"
+              *ngFor="let subChild of child.children"
+            >
+              {{ subChild.name | abpLocalization }}
+            </span>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <ng-template #nodeHasNoChildren>
+      <span class="route-name" type="button" [routerLink]="node.path">
+        {{ node.name | abpLocalization }}</span
+      >
+    </ng-template>
+  </ng-template>
+</div>
